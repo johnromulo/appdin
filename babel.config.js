@@ -27,6 +27,7 @@ module.exports = {
           '@config': './src/config',
           '@hooks': './src/hooks',
           '@locales': './src/locales',
+          '@routes': './src/routes',
         },
       },
     ],

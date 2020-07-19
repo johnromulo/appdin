@@ -67,7 +67,8 @@
       "@interfaces/*": ["src/interfaces/*"],
       "@config/*": ["src/config/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@locales/*": ["src/locales/*"]
+      "@locales/*": ["src/locales/*"],
+      "@routes/*": ["src/routes/*"]
     }
   },
   "exclude": [

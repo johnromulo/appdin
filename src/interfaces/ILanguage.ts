@@ -1,4 +1,4 @@
-export interface LanguageInterface {
+export interface ILanguage {
   hello: string;
   globalEmail: string;
   globalPassword: string;
@@ -9,4 +9,11 @@ export interface LanguageInterface {
   questionSignUp: string;
   signUp: string;
   forgotPassword: string;
+  makeLogin: string;
+  code: string;
+  sendCode: string;
+  submityourCode: string;
+  infoCode: string;
+  questionCode: string;
+  resend: string;
 }

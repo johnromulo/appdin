@@ -11,7 +11,7 @@ interface ThemeContextData {
 
 const ThemeDinContext = createContext<ThemeContextData>({} as ThemeContextData);
 
-export const ThemeDinProvider: React.FC = ({ children }: React.Props<{}>) => {
+export const ThemeDinProvider: React.FC = ({ children }: React.Props<any>) => {
   const [theme, setTheme] = useState<DefaultTheme>(darkTheme);
 
   const selectTheme = useCallback(() => {

@@ -3,6 +3,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { size } from '@styles/responsive';
 
+export const Wrap = styled.View``;
+
 export const Container = styled.View.attrs({
   shadowColor: '#000',
   shadowOffset: {
@@ -49,3 +51,12 @@ export const IconVisibilityOff = styled(Icon).attrs(props => ({
   size: size(20),
   name: 'visibility-off',
 }))``;
+
+export const ContainerError = styled.View`
+  padding-top: ${size(8)}px;
+`;
+
+export const TextError = styled.Text`
+  color: ${props => props.theme.colors.danger};
+  font-size: ${size(12)}px;
+`;

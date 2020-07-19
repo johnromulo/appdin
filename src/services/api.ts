@@ -1,6 +1,7 @@
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
-import { saveAccess, getRefreshToken } from '@hooks/useStorageAccess';
 
 const api = axios.create({
   baseURL: `http://localhost:3333/api/v1/`,
@@ -11,7 +12,7 @@ const refreshAuthLogic = (failedRequest: any) => {
 
   async function getNewtoken(): Promise<void> {
     try {
-      const refreshToken = await getRefreshToken();
+      const refreshToken = await AsyncStorage.getItem('@din:refreshToken');
 
       const response = await axios.post(
         'http://localhost:3333/api/v1/auth/refresh_token',
@@ -23,10 +24,10 @@ const refreshAuthLogic = (failedRequest: any) => {
         },
       );
 
-      await saveAccess(
-        `Bearer ${response.data.access.accessToken}`,
-        response.data.access.refreshToken,
-      );
+      await AsyncStorage.multiSet([
+        ['@din:accesstoken', response.data.access.accesstoken],
+        ['@din:refreshToken', response.data.access.refreshToken],
+      ]);
 
       api.defaults.headers.Authorization = `Bearer ${response.data.access.accessToken}`;
 

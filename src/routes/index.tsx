@@ -3,8 +3,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'react-native';
 import { ThemeContext } from 'styled-components';
 
+import AlertCustom from '@components/AlertCustom';
+
 import AuthRoutes from './auth.routes';
-import UtilsRoutes from './utils.routes';
 
 const RootStack = createStackNavigator();
 
@@ -26,13 +27,13 @@ const Routes: React.FC = () => {
         <RootStack.Screen name="Main" component={AuthRoutes} />
         <RootStack.Screen
           options={{
-            animationEnabled: true,
+            animationEnabled: false,
             cardStyle: {
               backgroundColor: 'rgba(0,0,0, 0.15)',
             },
           }}
-          name="Utils"
-          component={UtilsRoutes}
+          name="Alert"
+          component={AlertCustom}
         />
       </RootStack.Navigator>
     </>

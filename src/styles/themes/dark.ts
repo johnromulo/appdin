@@ -7,7 +7,7 @@ export default {
     textPrimary: '#F5F6F8',
     textSecundary: '#777A84',
     positive: '#63C682',
-    danger: '#E54D73',
+    danger: '#ff104b',
     warning: '#EBBB34',
     info: '#3384B5',
   },

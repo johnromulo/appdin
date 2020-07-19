@@ -1,11 +1,13 @@
-import React from 'react';
-import Modal from 'react-native-modal';
+import React, { useRef, useEffect, useCallback } from 'react';
+import { Animated } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { IAlertProps } from '@interfaces/IAlertProps';
+
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 
 import {
   Container,
-  Content,
+  ContentAnimated,
   Header,
   Title,
   Main,
@@ -14,43 +16,58 @@ import {
   TextButton,
 } from './styles';
 
+type ParamList = {
+  Alert: IAlertProps;
+};
+
+const TIME_ANIMATION = 550;
+
 const ModalCustom: React.FC = () => {
   const { goBack } = useNavigation();
+
+  const slideAnim = useRef(new Animated.Value(800)).current;
+
+  useEffect(() => {
+    Animated.timing(slideAnim, {
+      toValue: 0,
+      duration: TIME_ANIMATION,
+      useNativeDriver: false,
+    }).start();
+  }, [slideAnim]);
+
+  const { params } = useRoute<RouteProp<ParamList, 'Alert'>>();
+
+  const slideOut = useCallback(() => {
+    Animated.timing(slideAnim, {
+      toValue: 800,
+      duration: TIME_ANIMATION,
+      useNativeDriver: false,
+    }).start();
+
+    setTimeout(() => {
+      goBack();
+    }, TIME_ANIMATION);
+  }, [slideAnim, goBack]);
+
   return (
     <Container>
-      {/* <Modal
-        isVisible
-        animationIn="zoomInDown"
-        animationOut="zoomOutUp"
-        animationInTiming={600}
-        animationOutTiming={600}
-        backdropTransitionInTiming={600}
-        backdropTransitionOutTiming={600}
-        backdropColor="#B4B3DB"
-        backdropOpacity={0.8}
+      <ContentAnimated
+        style={[
+          {
+            top: slideAnim,
+          },
+        ]}
       >
         <Header>
-          <Title>Atenção!</Title>
-        </Header>
-        <Content>
-          <Message>Mensagem do modal</Message>
-        </Content>
-        
-      </Modal> */}
-      <Content>
-        <Header>
-          <Title>Atenção !</Title>
+          <Title>{params.title}</Title>
         </Header>
         <Main>
-          <Message>
-            Mensagem do modal mensagem do modal mensagem do modal mensagem do
-            modal.
-          </Message>
+          <Message>{params.message}</Message>
         </Main>
-        <Button onPress={() => goBack()}>
-          <TextButton>OK</TextButton>
+        <Button onPress={() => slideOut()}>
+          <TextButton>Ok</TextButton>
         </Button>
-      </Content>
+      </ContentAnimated>
     </Container>
   );
 };

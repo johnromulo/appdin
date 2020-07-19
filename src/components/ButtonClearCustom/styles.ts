@@ -18,5 +18,5 @@ export const Content = styled.TouchableOpacity`
 export const Text = styled.Text`
   font-size: ${size(14)}px;
   font-weight: bold;
-  color: ${props => props.theme.colors.textPrimary};
+  color: ${props => props.theme.colors.primary};
 `;
