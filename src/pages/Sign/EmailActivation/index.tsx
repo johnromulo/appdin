@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useFormik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
@@ -10,6 +10,8 @@ import { alert } from '@hooks/useAlert';
 
 import api from '@services/api';
 
+import { IAnimatedLottieView } from '@interfaces/IAnimatedLottieView';
+
 import InputForm from '@components/InputForm';
 import ButtonCustom from '@components/ButtonCustom';
 import ButtonClearCustom from '@components/ButtonClearCustom';
@@ -20,6 +22,8 @@ import {
   HeaderButtonContainer,
   Container,
   Header,
+  LottieContent,
+  SendMailAnimation,
   Content,
   IconArrowLeft,
   MakeSendCodeContainer,
@@ -40,6 +44,9 @@ const EmailActivation: React.FC = () => {
   const { emailInactive } = useAuth();
 
   const [loading, setLoading] = useState(false);
+  const [loadingResend, setLoadingResend] = useState(false);
+
+  const lottieRef = useRef<IAnimatedLottieView | any>(null);
 
   const {
     setFieldTouched,
@@ -60,26 +67,71 @@ const EmailActivation: React.FC = () => {
         await api.get(`activateEmail/${emailInactive}/${resultValues.code}`);
 
         setLoading(false);
-        goBack();
+
+        alert({
+          typeAlert: 'success',
+          title: translate('success'),
+          message: translate('actvatedMailSuccess'),
+          buttons: [
+            {
+              text: 'ok',
+              onPress: () => {
+                goBack();
+              },
+              styleButton: 'success',
+            },
+          ],
+        });
       } catch (error) {
         setLoading(false);
         if (error?.response?.status && error?.response?.data) {
           const { data } = error.response;
           const message = data.error;
           alert({
-            title: 'Atenção!',
+            typeAlert: 'error',
+            title: translate('attention'),
             message,
+            buttons: [
+              {
+                text: 'ok',
+                styleButton: 'error',
+              },
+            ],
           });
         } else {
           alert({
-            title: 'Atenção!',
-            message:
-              'Erro ao conectar ao servidor, tente novamente mais tarde!',
+            typeAlert: 'error',
+            title: translate('attention'),
+            message: translate('connectServerErro'),
+            buttons: [
+              {
+                text: 'ok',
+                styleButton: 'error',
+              },
+            ],
           });
         }
       }
     },
   });
+
+  const resend = useCallback(async () => {
+    try {
+      setLoadingResend(true);
+      await api.post('resendCodeActivateEmail/', {
+        email: emailInactive,
+      });
+
+      setLoadingResend(false);
+      lottieRef.current.play();
+
+      setTimeout(() => {
+        lottieRef.current.reset();
+      }, 2400);
+    } catch (error) {
+      setLoadingResend(false);
+    }
+  }, [emailInactive]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -89,6 +141,9 @@ const EmailActivation: React.FC = () => {
             <ButtonIconCustom icon={() => <IconArrowLeft />} onPress={goBack} />
           </HeaderButtonContainer>
         </Header>
+        <LottieContent>
+          <SendMailAnimation ref={lottieRef} />
+        </LottieContent>
         <Container>
           <MakeSendCodeContainer>
             <MakeSendCodeText>{translate('submityourCode')}</MakeSendCodeText>
@@ -118,7 +173,11 @@ const EmailActivation: React.FC = () => {
           </Content>
           <SignContent>
             <TextInfoSignUp>{translate('questionCode')}</TextInfoSignUp>
-            <ButtonClearCustom text={translate('resend')} />
+            <ButtonClearCustom
+              loading={loadingResend}
+              onPress={resend}
+              text={translate('resend')}
+            />
           </SignContent>
         </Container>
       </Wrap>

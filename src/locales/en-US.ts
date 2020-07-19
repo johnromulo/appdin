@@ -19,6 +19,11 @@ const en: ILanguage = {
     'You have received an activation code in your email inform below to activate your account.',
   questionCode: `Didn't receive code?`,
   resend: 'Resend',
+  attention: 'Attention!',
+  connectServerErro: 'Error connecting to the server, try again later!',
+  actvatedMailSuccess:
+    'Congratulations your email has been activated, now you can now login and use the App.',
+  success: 'Success!',
 };
 
 export default en;

@@ -16,4 +16,8 @@ export interface ILanguage {
   infoCode: string;
   questionCode: string;
   resend: string;
+  attention: string;
+  connectServerErro: string;
+  actvatedMailSuccess: string;
+  success: string;
 }

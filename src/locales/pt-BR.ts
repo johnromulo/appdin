@@ -19,6 +19,12 @@ const pt: ILanguage = {
     'Você recebeu um código de ativação no seu email  informe abaixo para ativar a sua conta.',
   questionCode: 'Não recebeu o código?',
   resend: 'Reenviar',
+  attention: 'Atenção!',
+  connectServerErro:
+    'Erro ao conectar ao servidor, tente novamente mais tarde!',
+  actvatedMailSuccess:
+    'Parabéns seu email foi ativado, agora você ja pode fazer login e utilizar o App.',
+  success: 'Sucesso!',
 };
 
 export default pt;

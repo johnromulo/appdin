@@ -3,11 +3,16 @@ import { Animated } from 'react-native';
 
 import { IAlertProps } from '@interfaces/IAlertProps';
 
+import { IAnimatedLottieView } from '@interfaces/IAnimatedLottieView';
+
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 
 import {
   Container,
   ContentAnimated,
+  LottieContent,
+  SuccessAnimation,
+  ErrorAnimation,
   Header,
   Title,
   Main,
@@ -24,6 +29,7 @@ const TIME_ANIMATION = 550;
 
 const ModalCustom: React.FC = () => {
   const { goBack } = useNavigation();
+  const lottieRef = useRef<IAnimatedLottieView | any>(null);
 
   const slideAnim = useRef(new Animated.Value(800)).current;
 
@@ -33,6 +39,12 @@ const ModalCustom: React.FC = () => {
       duration: TIME_ANIMATION,
       useNativeDriver: false,
     }).start();
+
+    setTimeout(() => {
+      if (lottieRef.current) {
+        lottieRef.current.play();
+      }
+    }, TIME_ANIMATION + 100);
   }, [slideAnim]);
 
   const { params } = useRoute<RouteProp<ParamList, 'Alert'>>();
@@ -58,15 +70,32 @@ const ModalCustom: React.FC = () => {
           },
         ]}
       >
+        <LottieContent>
+          {params.typeAlert === 'success' && (
+            <SuccessAnimation ref={lottieRef} />
+          )}
+          {params.typeAlert === 'error' && <ErrorAnimation ref={lottieRef} />}
+        </LottieContent>
         <Header>
           <Title>{params.title}</Title>
         </Header>
         <Main>
           <Message>{params.message}</Message>
         </Main>
-        <Button onPress={() => slideOut()}>
-          <TextButton>Ok</TextButton>
-        </Button>
+        {params.buttons?.map((button, index) => (
+          <Button
+            key={index.toString()}
+            typeAlert={button.styleButton || 'info'}
+            onPress={async () => {
+              if (button.onPress) {
+                await button.onPress();
+              }
+              slideOut();
+            }}
+          >
+            <TextButton>Ok</TextButton>
+          </Button>
+        ))}
       </ContentAnimated>
     </Container>
   );

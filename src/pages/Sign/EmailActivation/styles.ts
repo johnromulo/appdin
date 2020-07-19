@@ -1,6 +1,9 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Platform } from 'react-native';
+import LottieView from 'lottie-react-native';
+
+import sendMailLottie from '@assets/lottie/sendmail.json';
 
 import { size } from '@styles/responsive.ts';
 
@@ -22,7 +25,6 @@ export const Container = styled.KeyboardAvoidingView.attrs({
 })`
   flex: 1;
   background-color: ${props => props.theme.colors.backgoundPrimary};
-  justify-content: center;
   align-items: center;
 `;
 
@@ -83,3 +85,24 @@ export const IconArrowLeft = styled(Icon).attrs(props => ({
   size: size(22),
   name: 'arrow-left',
 }))``;
+
+export const LottieContent = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SendMailAnimation = styled(LottieView).attrs(props => ({
+  source: sendMailLottie,
+  loop: false,
+  autoPlay: false,
+  speed: 2,
+  colorFilters: [
+    {
+      keypath: 'Yellow Solid 1',
+      color: props.theme.colors.backgoundPrimary,
+    },
+  ],
+}))`
+  width: ${size(220)}px;
+  height: ${size(220)}px;
+`;

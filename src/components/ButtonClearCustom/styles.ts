@@ -20,3 +20,8 @@ export const Text = styled.Text`
   font-weight: bold;
   color: ${props => props.theme.colors.primary};
 `;
+
+export const Loading = styled.ActivityIndicator.attrs(props => ({
+  size: 'small',
+  color: props.theme.colors.primary,
+}))``;

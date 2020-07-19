@@ -2,6 +2,10 @@ import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { size } from '@styles/responsive';
 import { Animated } from 'react-native';
+import LottieView from 'lottie-react-native';
+
+import successfulLottie from '@assets/lottie/successful.json';
+import failedLottie from '@assets/lottie/failed.json';
 
 export const Container = styled.View`
   flex: 1;
@@ -37,15 +41,40 @@ export const Message = styled.Text`
   color: ${props => props.theme.colors.textPrimary};
 `;
 
-export const Button = styled(RectButton)`
+interface ButtonProps {
+  typeAlert: 'success' | 'error' | 'info';
+}
+
+export const Button = styled(RectButton)<ButtonProps>`
   margin: ${size(6)}px;
   padding: ${size(10)}px ${size(32)}px;
   border-radius: ${4}px;
-  background-color: ${props => props.theme.colors.info};
+  background-color: ${props =>
+    (props.typeAlert === 'success' && props.theme.colors.positive) ||
+    (props.typeAlert === 'error' && props.theme.colors.danger) ||
+    (props.typeAlert === 'info' && props.theme.colors.info)};
 `;
 
 export const TextButton = styled.Text`
   font-size: ${size(14)}px;
   font-weight: bold;
   color: ${props => props.theme.colors.textPrimary};
+`;
+
+export const LottieContent = styled.View``;
+
+export const SuccessAnimation = styled(LottieView).attrs({
+  source: successfulLottie,
+  loop: false,
+})`
+  width: ${size(250)}px;
+  height: ${size(250)}px;
+`;
+
+export const ErrorAnimation = styled(LottieView).attrs({
+  source: failedLottie,
+  loop: false,
+})`
+  width: ${size(250)}px;
+  height: ${size(250)}px;
 `;

@@ -95,14 +95,30 @@ export const AuthProvider: React.FC = ({ children }: React.Props<any>) => {
           navigate('EmailActivation', {});
         } else {
           alert({
+            typeAlert: 'error',
             title: 'Atenção!',
             message: `Falha na autenticação, ${message}`,
+            buttons: [
+              {
+                text: 'ok',
+                // onPress: () => {},
+                styleButton: 'error',
+              },
+            ],
           });
         }
       } else {
         alert({
+          typeAlert: 'error',
           title: 'Atenção!',
           message: 'Erro ao conectar ao servidor, tente novamente mais tarde!',
+          buttons: [
+            {
+              text: 'ok',
+              // onPress: () => {},
+              styleButton: 'error',
+            },
+          ],
         });
       }
       setLoading(false);
