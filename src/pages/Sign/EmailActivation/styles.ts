@@ -11,6 +11,15 @@ export const Wrap = styled.SafeAreaView`
   flex: 1;
 `;
 
+export const Container = styled.KeyboardAvoidingView.attrs({
+  enabled: Platform.OS === 'ios',
+  behavior: 'padding',
+})`
+  flex: 1;
+`;
+
+export const Scroll = styled.ScrollView``;
+
 export const Header = styled.View`
   padding: ${size(10)}px ${size(20)}px;
   justify-content: center;
@@ -19,10 +28,7 @@ export const Header = styled.View`
 
 export const HeaderButtonContainer = styled.View``;
 
-export const Container = styled.KeyboardAvoidingView.attrs({
-  enabled: Platform.OS === 'ios',
-  behavior: 'padding',
-})`
+export const Main = styled.View`
   flex: 1;
   background-color: ${props => props.theme.colors.backgoundPrimary};
   align-items: center;

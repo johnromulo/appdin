@@ -21,6 +21,8 @@ import {
   Wrap,
   HeaderButtonContainer,
   Container,
+  Scroll,
+  Main,
   Header,
   LottieContent,
   SendMailAnimation,
@@ -47,6 +49,8 @@ const EmailActivation: React.FC = () => {
   const [loadingResend, setLoadingResend] = useState(false);
 
   const lottieRef = useRef<IAnimatedLottieView | any>(null);
+
+  const scrollRef = useRef<any>(null);
 
   const {
     setFieldTouched,
@@ -136,49 +140,65 @@ const EmailActivation: React.FC = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Wrap>
-        <Header>
-          <HeaderButtonContainer>
-            <ButtonIconCustom icon={() => <IconArrowLeft />} onPress={goBack} />
-          </HeaderButtonContainer>
-        </Header>
-        <LottieContent>
-          <SendMailAnimation ref={lottieRef} />
-        </LottieContent>
         <Container>
-          <MakeSendCodeContainer>
-            <MakeSendCodeText>{translate('submityourCode')}</MakeSendCodeText>
-            <InfoSendCodeText>{translate('infoCode')}</InfoSendCodeText>
-            <InfoSendCodeTextExemple>ex: 123456.</InfoSendCodeTextExemple>
-          </MakeSendCodeContainer>
-          <InputContent>
-            <InputForm
-              icon={() => <IconAccountKey />}
-              autoCapitalize="none"
-              keyboardType="number-pad"
-              placeholder={translate('code')}
-              value={values.code}
-              error={!!(errors.code && touched.code)}
-              mensageError={errors.code}
-              onChangeText={handleChange('code')}
-              onBlur={() => setFieldTouched('code')}
-              maxLength={6}
-            />
-          </InputContent>
-          <Content>
-            <ButtonCustom
-              loading={loading}
-              text={translate('sendCode')}
-              onPress={handleSubmit}
-            />
-          </Content>
-          <SignContent>
-            <TextInfoSignUp>{translate('questionCode')}</TextInfoSignUp>
-            <ButtonClearCustom
-              loading={loadingResend}
-              onPress={resend}
-              text={translate('resend')}
-            />
-          </SignContent>
+          <Scroll ref={scrollRef}>
+            <Header>
+              <HeaderButtonContainer>
+                <ButtonIconCustom
+                  icon={() => <IconArrowLeft />}
+                  onPress={goBack}
+                />
+              </HeaderButtonContainer>
+            </Header>
+            <LottieContent>
+              <SendMailAnimation ref={lottieRef} />
+            </LottieContent>
+            <Main>
+              <MakeSendCodeContainer>
+                <MakeSendCodeText>
+                  {translate('submityourCode')}
+                </MakeSendCodeText>
+                <InfoSendCodeText>{translate('infoCode')}</InfoSendCodeText>
+                <InfoSendCodeTextExemple>ex: 123456.</InfoSendCodeTextExemple>
+              </MakeSendCodeContainer>
+              <InputContent>
+                <InputForm
+                  icon={() => <IconAccountKey />}
+                  autoCapitalize="none"
+                  keyboardType="number-pad"
+                  placeholder={translate('code')}
+                  value={values.code}
+                  error={!!(errors.code && touched.code)}
+                  mensageError={errors.code}
+                  onChangeText={handleChange('code')}
+                  onBlur={() => setFieldTouched('code')}
+                  maxLength={6}
+                  onFocus={() => {
+                    setTimeout(() => {
+                      scrollRef.current.scrollToEnd({
+                        animated: true,
+                      });
+                    }, 600);
+                  }}
+                />
+              </InputContent>
+              <Content>
+                <ButtonCustom
+                  loading={loading}
+                  text={translate('sendCode')}
+                  onPress={handleSubmit}
+                />
+              </Content>
+              <SignContent>
+                <TextInfoSignUp>{translate('questionCode')}</TextInfoSignUp>
+                <ButtonClearCustom
+                  loading={loadingResend}
+                  onPress={resend}
+                  text={translate('resend')}
+                />
+              </SignContent>
+            </Main>
+          </Scroll>
         </Container>
       </Wrap>
     </TouchableWithoutFeedback>
