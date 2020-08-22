@@ -30,7 +30,7 @@ export const HeaderButtonContainer = styled.View``;
 
 export const Main = styled.View`
   flex: 1;
-  background-color: ${props => props.theme.colors.backgoundPrimary};
+  background-color: ${props => props.theme.colors.secondary.type2};
   align-items: center;
 `;
 
@@ -50,19 +50,19 @@ export const MakeSendCodeContainer = styled.View`
 
 export const MakeSendCodeText = styled.Text`
   font-size: ${size(24)}px;
-  color: ${props => props.theme.colors.textPrimary};
+  color: ${props => props.theme.colors.natural.type1};
   text-align: center;
 `;
 
 export const InfoSendCodeText = styled.Text`
   font-size: ${size(14)}px;
-  color: ${props => props.theme.colors.textSecundary};
+  color: ${props => props.theme.colors.natural.type2};
   margin-top: ${size(14)}px;
 `;
 
 export const InfoSendCodeTextExemple = styled.Text`
   font-size: ${size(14)}px;
-  color: ${props => props.theme.colors.textSecundary};
+  color: ${props => props.theme.colors.natural.type2};
   font-style: italic;
   font-weight: bold;
 `;
@@ -77,17 +77,17 @@ export const SignContent = styled.View`
 
 export const TextInfoSignUp = styled.Text`
   font-size: ${size(14)}px;
-  color: ${props => props.theme.colors.textSecundary};
+  color: ${props => props.theme.colors.natural.type2};
 `;
 
 export const IconAccountKey = styled(Icon).attrs(props => ({
-  color: props.theme.colors.textSecundary,
+  color: props.theme.colors.natural.type2,
   size: size(18),
   name: 'account-key',
 }))``;
 
 export const IconArrowLeft = styled(Icon).attrs(props => ({
-  color: props.theme.colors.textPrimary,
+  color: props.theme.colors.natural.type1,
   size: size(22),
   name: 'arrow-left',
 }))``;
@@ -105,7 +105,7 @@ export const SendMailAnimation = styled(LottieView).attrs(props => ({
   colorFilters: [
     {
       keypath: 'Yellow Solid 1',
-      color: props.theme.colors.backgoundPrimary,
+      color: props.theme.colors.secondary.type2,
     },
   ],
 }))`

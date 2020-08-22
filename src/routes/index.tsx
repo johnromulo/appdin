@@ -16,7 +16,7 @@ const Routes: React.FC = () => {
     <>
       <StatusBar
         barStyle="light-content"
-        backgroundColor={colors.backgoundPrimary}
+        backgroundColor={colors.secondary.type2}
       />
       <RootStack.Navigator
         mode="modal"

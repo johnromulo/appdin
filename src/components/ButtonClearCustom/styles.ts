@@ -1,9 +1,8 @@
 import styled from 'styled-components/native';
-import { size } from '@styles/responsive';
 
 export const Container = styled.View`
   background-color: transparent;
-  border-radius: ${size(4)}px;
+  border-radius: ${props => props.theme.border.radius.medium};
 `;
 
 export const Content = styled.TouchableOpacity`
@@ -11,17 +10,18 @@ export const Content = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   background-color: transparent;
-  border-radius: ${size(4)}px;
-  padding: ${size(12)}px ${size(10)}px;
+  border-radius: ${props => props.theme.border.radius.medium};
+  padding: ${props =>
+    `${props.theme.spacings.sp4}px ${props.theme.spacings.sp3}px`};
 `;
 
 export const Text = styled.Text`
-  font-size: ${size(14)}px;
+  font-size: ${props => props.theme.fontsSizes.sm}px;
   font-weight: bold;
-  color: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.primary.type1};
 `;
 
 export const Loading = styled.ActivityIndicator.attrs(props => ({
   size: 'small',
-  color: props.theme.colors.primary,
+  color: props.theme.colors.primary.type1,
 }))``;

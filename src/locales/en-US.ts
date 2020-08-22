@@ -24,6 +24,7 @@ const en: ILanguage = {
   actvatedMailSuccess:
     'Congratulations your email has been activated, now you can now login and use the App.',
   success: 'Success!',
+  makeSignUp: 'Make your registration!',
 };
 
 export default en;

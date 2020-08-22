@@ -1,14 +1,25 @@
+import designTokens from '@styles/designTokens';
+
 export default {
   title: 'light',
   colors: {
-    backgoundPrimary: '#282C37',
-    backgoundSecondary: '#2D313D',
-    primary: '#ff7633',
-    textPrimary: '#F5F6F8',
-    textSecundary: '#777A84',
-    positive: '#63C682',
-    danger: '#E54D73',
-    warning: '#EBBB34',
-    info: '#3384B5',
+    natural: {
+      type1: '#F5F6F8',
+      type2: '#777A84',
+    },
+    primary: {
+      type1: '#ff3366',
+    },
+    secondary: {
+      type1: '#2D313D',
+      type2: '#282C37',
+    },
+    suport: {
+      type1: '#63C682',
+      type2: '#EBBB34',
+      type3: '#3384B5',
+      type4: '#ff104b',
+    },
   },
+  ...designTokens,
 };

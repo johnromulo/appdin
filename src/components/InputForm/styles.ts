@@ -5,58 +5,52 @@ import { size } from '@styles/responsive';
 
 export const Wrap = styled.View``;
 
-export const Container = styled.View.attrs({
-  shadowColor: '#000',
-  shadowOffset: {
-    width: 0,
-    height: size(2),
-  },
-  shadowOpacity: 0.25,
-  shadowRadius: size(3.84),
-  elevation: 5,
-})`
-  background-color: ${props => props.theme.colors.backgoundSecondary};
-  padding: 0 ${size(10)}px;
+export const Container = styled.View.attrs(props => ({
+  ...props.theme.shadows.type1,
+}))`
+  background-color: ${props => props.theme.colors.secondary.type1};
+  padding: 0 ${props => props.theme.spacings.sp3}px;
   width: 100%;
   height: ${size(48)}px;
   flex-direction: row;
   align-items: center;
-  border-radius: ${size(4)}px;
+  border-radius: ${props => props.theme.border.radius.medium};
 `;
 
 export const IconContainer = styled.View`
-  margin-right: ${size(10)}px;
+  margin-right: ${props => props.theme.spacings.sp3}px;
 `;
 
 export const Input = styled.TextInput.attrs(props => ({
-  placeholderTextColor: props.theme.colors.textSecundary,
+  placeholderTextColor: props.theme.colors.natural.type2,
 }))`
   flex: 1;
-  font-size: ${size(16)}px;
-  color: ${props => props.theme.colors.textPrimary};
+  font-size: ${props => props.theme.fontsSizes.md}px;
+  color: ${props => props.theme.colors.natural.type1};
 `;
 
 export const ButtonVibility = styled.TouchableOpacity`
-  padding: ${size(4)}px ${size(8)}px;
+  padding: ${props =>
+    `${props.theme.spacings.sp1}px ${props.theme.spacings.sp2}px`};
 `;
 
 export const IconVisibility = styled(Icon).attrs(props => ({
-  color: props.theme.colors.textPrimary,
-  size: size(20),
+  color: props.theme.colors.natural.type1,
+  size: props.theme.fontsSizes.xl,
   name: 'visibility',
 }))``;
 
 export const IconVisibilityOff = styled(Icon).attrs(props => ({
-  color: props.theme.colors.textPrimary,
-  size: size(20),
+  color: props.theme.colors.natural.type1,
+  size: props.theme.fontsSizes.xl,
   name: 'visibility-off',
 }))``;
 
 export const ContainerError = styled.View`
-  padding-top: ${size(8)}px;
+  padding-top: ${props => props.theme.spacings.sp2}px;
 `;
 
 export const TextError = styled.Text`
-  color: ${props => props.theme.colors.danger};
-  font-size: ${size(12)}px;
+  color: ${props => props.theme.colors.suport.type4};
+  font-size: ${props => props.theme.fontsSizes.xs}px;
 `;

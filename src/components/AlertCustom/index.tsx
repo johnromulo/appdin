@@ -16,6 +16,7 @@ import {
   Header,
   Title,
   Main,
+  Scroll,
   Message,
   Button,
   TextButton,
@@ -70,18 +71,22 @@ const ModalCustom: React.FC = () => {
           },
         ]}
       >
-        <LottieContent>
-          {params.typeAlert === 'success' && (
-            <SuccessAnimation ref={lottieRef} />
-          )}
-          {params.typeAlert === 'error' && <ErrorAnimation ref={lottieRef} />}
-        </LottieContent>
+        {params.typeAlert !== 'info' && (
+          <LottieContent>
+            {params.typeAlert === 'success' && (
+              <SuccessAnimation ref={lottieRef} />
+            )}
+            {params.typeAlert === 'error' && <ErrorAnimation ref={lottieRef} />}
+          </LottieContent>
+        )}
         <Header>
           <Title>{params.title}</Title>
         </Header>
-        <Main>
-          <Message>{params.message}</Message>
-        </Main>
+        <Scroll>
+          <Main>
+            <Message>{params.message}</Message>
+          </Main>
+        </Scroll>
         {params.buttons?.map((button, index) => (
           <Button
             key={index.toString()}

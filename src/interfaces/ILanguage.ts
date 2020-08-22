@@ -20,4 +20,5 @@ export interface ILanguage {
   connectServerErro: string;
   actvatedMailSuccess: string;
   success: string;
+  makeSignUp: string;
 }
