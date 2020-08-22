@@ -26,6 +26,8 @@ const pt: ILanguage = {
     'Parabéns seu email foi ativado, agora você ja pode fazer login e utilizar o App.',
   success: 'Sucesso!',
   makeSignUp: 'Faça o seu cadastro!',
+  iAgreeWith: 'Eu concordo com os',
+  termsOfService: 'termos de serviços',
 };
 
 export default pt;

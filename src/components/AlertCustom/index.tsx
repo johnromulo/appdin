@@ -98,7 +98,7 @@ const ModalCustom: React.FC = () => {
               slideOut();
             }}
           >
-            <TextButton>Ok</TextButton>
+            <TextButton>{button.text}</TextButton>
           </Button>
         ))}
       </ContentAnimated>

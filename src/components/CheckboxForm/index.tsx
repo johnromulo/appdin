@@ -9,25 +9,41 @@ import {
   ContentText,
   ContainerError,
   TextError,
+  Prefix,
+  TextContentClick,
+  Text,
+  Sufix,
 } from './styles';
 
-type CheckboxFormProps = React.Props<any> &
-  CheckBoxProps & {
-    textError: string;
-  };
+type CheckBoxFormProps = CheckBoxProps & {
+  prefix?: string;
+  text: string;
+  sufix?: string;
+  textError?: string;
+  textPress?: () => void;
+};
 
-const CheckboxForm: React.FC<CheckboxFormProps> = ({
-  children,
+const CheckboxForm: React.FC<CheckBoxFormProps> = ({
   textError,
+  prefix,
+  sufix,
+  text,
+  textPress,
   ...rest
-}: CheckboxFormProps) => {
+}: CheckBoxFormProps) => {
   return (
     <Wrap>
       <Container>
         <CheboxContent>
           <CheckBox {...rest} />
         </CheboxContent>
-        <ContentText>{children}</ContentText>
+        <ContentText>
+          {prefix && <Prefix>{prefix}</Prefix>}
+          <TextContentClick onPress={textPress}>
+            <Text>{text}</Text>
+          </TextContentClick>
+          {sufix && <Sufix>{sufix}</Sufix>}
+        </ContentText>
       </Container>
       <ContainerError>
         <TextError>{textError}</TextError>

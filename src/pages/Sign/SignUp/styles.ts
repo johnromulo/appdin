@@ -74,8 +74,3 @@ export const IconArrowLeft = styled(Icon).attrs(props => ({
   size: props.theme.fontsSizes['2xl'],
   name: 'arrow-left',
 }))``;
-
-export const TextCheckBox = styled.Text`
-  font-size: ${props => props.theme.fontsSizes.md}px;
-  color: ${props => props.theme.colors.natural.type1};
-`;

@@ -21,4 +21,6 @@ export interface ILanguage {
   actvatedMailSuccess: string;
   success: string;
   makeSignUp: string;
+  iAgreeWith: string;
+  termsOfService: string;
 }

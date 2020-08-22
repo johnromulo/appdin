@@ -1,11 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useFormik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
 
 import { translate } from '@locales/translate';
 
-import { useAuth } from '@hooks/auth';
 import { alert } from '@hooks/useAlert';
 
 import api from '@services/api';
@@ -29,7 +28,6 @@ import {
   IconAccountOutline,
   IconMailOutline,
   IconLockOutline,
-  TextCheckBox,
 } from './styles';
 
 import formValidatorRegister from './formValidator';
@@ -37,14 +35,13 @@ import formValidatorRegister from './formValidator';
 const EmailActivation: React.FC = () => {
   const { goBack } = useNavigation();
 
-  const { emailInactive } = useAuth();
-
   const [loading, setLoading] = useState(false);
 
   const scrollRef = useRef<any>(null);
 
   const {
     setFieldTouched,
+    setFieldValue,
     handleSubmit,
     handleChange,
     values,
@@ -117,6 +114,20 @@ const EmailActivation: React.FC = () => {
       }
     },
   });
+
+  const openAlertTerms = useCallback(() => {
+    alert({
+      typeAlert: 'info',
+      title: translate('termsOfService'),
+      message: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+      buttons: [
+        {
+          text: 'OK',
+          styleButton: 'info',
+        },
+      ],
+    });
+  }, []);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -195,9 +206,14 @@ const EmailActivation: React.FC = () => {
                 />
               </Content>
               <Content>
-                <CheckBoxForm textError={errors.terms}>
-                  <TextCheckBox>texto</TextCheckBox>
-                </CheckBoxForm>
+                <CheckBoxForm
+                  textError={errors.terms}
+                  text={translate('termsOfService')}
+                  prefix={`${translate('iAgreeWith')} `}
+                  value={values.terms}
+                  onValueChange={() => setFieldValue('terms', !values.terms)}
+                  textPress={openAlertTerms}
+                />
               </Content>
               <Content>
                 <ButtonCustom
